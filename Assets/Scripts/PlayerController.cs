@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     private CharacterController _characterController;
     private Transform _camera;
+    private Animator _animator;
 
      //----------------Variables Movimiento-----------------
     [SerializeField] private float _movementSpeed = 5;
@@ -34,17 +35,26 @@ public class PlayerController : MonoBehaviour
     void Awake(){
         _characterController = GetComponent<CharacterController>();
         _camera = Camera.main.transform;
+        _animator = GetComponentInChildren<Animator>();
     }
     void Update(){
         _horizontal=Input.GetAxis("Horizontal");
         _vertical=Input.GetAxis("Vertical");
         // Movement();
-        AimMovement();
-        if(Input.GetButtonDown("Jump") && IsGrounded())Jump();
+        // AimMovement();
+
+        if(Input.GetButtonDown("Fire2")) AimMovement();
+        else  Movement();
+    
+        if(Input.GetButtonDown("Jump") && IsGrounded()) Jump();
         Gravity();
     }
     void Movement(){
         Vector3 direction= new Vector3(_horizontal, 0, _vertical);
+
+        _animator.SetFloat("VelZ", direction.magnitude);
+        _animator.SetFloat("VelX",0);
+
         if(direction != Vector3.zero){
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + _camera.eulerAngles.y;
             float smoothAngle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref _turnSmoothVelocity, _turnSmoothTime);
@@ -55,6 +65,10 @@ public class PlayerController : MonoBehaviour
     }
     void AimMovement(){
         Vector3 direction= new Vector3(_horizontal, 0, _vertical);
+        
+        _animator.SetFloat("VelZ",_vertical);
+        _animator.SetFloat("VelX",_horizontal);
+
         float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + _camera.eulerAngles.y;
         float smoothAngle = Mathf.SmoothDampAngle(transform.eulerAngles.y, _camera.eulerAngles.y, ref _turnSmoothVelocity, _turnSmoothTime);
         transform.rotation = Quaternion.Euler(0, smoothAngle, 0);
@@ -65,8 +79,10 @@ public class PlayerController : MonoBehaviour
     }
     void Gravity(){
         if(!IsGrounded()) _playergravity.y += _gravity *Time.deltaTime;
-        else if(IsGrounded() && _playergravity.y <0) _playergravity.y=-1;
-        
+        else if(IsGrounded() && _playergravity.y <0) {
+            _playergravity.y=-1;
+            _animator.SetBool("IsJumping",false);
+        }
         _characterController.Move(_playergravity *Time.deltaTime);
     }
     bool IsGrounded(){
@@ -77,6 +93,7 @@ public class PlayerController : MonoBehaviour
         Gizmos.DrawWireSphere(_sensorPosition.position, _sensorRadius);
     }
     void Jump(){
+        _animator.SetBool("IsJumping",true);
         _playergravity.y=Mathf.Sqrt(_jumpHeight*-2*_gravity);
     }
 }
