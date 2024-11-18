@@ -32,8 +32,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Transform _sensorPosition;
     [SerializeField] float _sensorRadius=0.5f;
 
-    public Text cuentaAtras;
-    
+    private bool isDead;
+
     void Start()
     {
         // Cursor.lockState = CursorLockMode.Locked; 
@@ -49,8 +49,8 @@ public class PlayerController : MonoBehaviour
         // Movement();
         // AimMovement();
 
-        if(Input.GetButtonDown("Fire2")) AimMovement();
-        else  Movement();
+        if(Input.GetButtonDown("Fire2") && !isDead) AimMovement();
+        else  if (!isDead) Movement();
     
         if(Input.GetButtonDown("Jump") && IsGrounded()) Jump();
         Gravity();
@@ -115,5 +115,8 @@ public class PlayerController : MonoBehaviour
         _playergravity.y=Mathf.Sqrt(_jumpHeight*-2*_gravity);
     }
     
+    void OnTriggerEnter(Collider collider) {
+        if(collider.gameObject.CompareTag("Death")) isDead=true;
+    }
 
 }
