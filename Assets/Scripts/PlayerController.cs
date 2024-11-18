@@ -1,8 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+
 // using System.Numerics;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -27,10 +31,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] LayerMask _floorLayer;
     [SerializeField] Transform _sensorPosition;
     [SerializeField] float _sensorRadius=0.5f;
+
+    public Text cuentaAtras;
     
     void Start()
     {
-        
+        // Cursor.lockState = CursorLockMode.Locked; 
     }
     void Awake(){
         _characterController = GetComponent<CharacterController>();
@@ -48,7 +54,14 @@ public class PlayerController : MonoBehaviour
     
         if(Input.GetButtonDown("Jump") && IsGrounded()) Jump();
         Gravity();
+
+        // if(Input.GetKeyUp(KeyCode.J)){
+        //     _characterController.enabled=!_characterController.enabled;
+        // }
+
     }
+
+    
     void Movement(){
         Vector3 direction= new Vector3(_horizontal, 0, _vertical);
 
@@ -63,6 +76,11 @@ public class PlayerController : MonoBehaviour
             _characterController.Move(moveDirection *_movementSpeed *Time.deltaTime);
         }
     }
+
+    // void MovementShit(){
+    //     Vector3 direction = new Vector3(_horizontal, 0, _vertical);
+    //     _characterController.Move(direction*_movementSpeed* Time.deltaTime)
+    // }
     void AimMovement(){
         Vector3 direction= new Vector3(_horizontal, 0, _vertical);
         
@@ -96,4 +114,6 @@ public class PlayerController : MonoBehaviour
         _animator.SetBool("IsJumping",true);
         _playergravity.y=Mathf.Sqrt(_jumpHeight*-2*_gravity);
     }
+    
+
 }

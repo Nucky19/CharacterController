@@ -32,6 +32,8 @@ public class TPSController : MonoBehaviour
     [SerializeField] private AxisState xAxis;
     [SerializeField] private AxisState yAxis;
 
+
+
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;

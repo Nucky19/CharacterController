@@ -347,7 +347,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 190480074}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.0041665547, y: 0, z: 0, w: 0.99999136}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -482,6 +482,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &328630159
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 328630161}
+  - component: {fileID: 328630160}
+  m_Layer: 0
+  m_Name: RayCast
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &328630160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 328630159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d77fce5d39cde9541952165ea60a98cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cuentaAtras: {fileID: 0}
+--- !u!4 &328630161
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 328630159}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &450786042
 GameObject:
   m_ObjectHideFlags: 0
@@ -523,6 +568,7 @@ MonoBehaviour:
     m_Bits: 64
   _sensorPosition: {fileID: 681831190}
   _sensorRadius: 0.5
+  cuentaAtras: {fileID: 0}
 --- !u!143 &450786044
 CharacterController:
   m_ObjectHideFlags: 0
@@ -706,6 +752,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 450786048}
+  rotationSpeed: 5
 --- !u!20 &629502326
 Camera:
   m_ObjectHideFlags: 0
@@ -1545,7 +1592,7 @@ GameObject:
   - component: {fileID: 1329346570}
   m_Layer: 0
   m_Name: Cubo
-  m_TagString: Untagged
+  m_TagString: Cubo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2100,3 +2147,4 @@ SceneRoots:
   - {fileID: 1030420130}
   - {fileID: 1752650501}
   - {fileID: 1329346573}
+  - {fileID: 328630161}
