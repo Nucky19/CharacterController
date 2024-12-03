@@ -10,7 +10,6 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
-    // Start is called before the first frame update
     private CharacterController _characterController;
     private Transform _camera;
     private Animator _animator;
